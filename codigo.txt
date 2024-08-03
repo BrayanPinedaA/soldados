@@ -1,0 +1,86 @@
+-- Active: 1722724054652@@127.0.0.1@3306@militar
+CREATE DATABASE  militar
+    DEFAULT CHARACTER SET = 'utf8mb4';
+
+    USE militar
+
+
+    CREATE Table Soldado(
+       Id_soldado INT(5) AUTO_INCREMENT PRIMARY KEY,
+       Primer_nombre VARCHAR (10),
+       Segundo_nombre VARCHAR (10),
+       Primer_apellido VARCHAR (10),
+       Segundo_apellido VARCHAR (10)
+    )
+
+
+    CREATE Table grados(
+        Fecha_grado INT (10)  PRIMARY KEY,
+        Tipo_grado VARCHAR (10),
+        Nombre_grado VARCHAR (10)
+    )
+
+
+    CREATE Table Cuerpos_del_ejercito(
+        Id_cuerpo INT(5) AUTO_INCREMENT PRIMARY KEY,
+        Denominacion VARCHAR(10)
+    )
+
+
+    CREATE Table cuarteles(
+        Id_cuarteles int (5) AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR (10)
+    )
+
+    CREATE Table   compañias(
+        Num_compañia INT (5) AUTO_INCREMENT PRIMARY KEY,
+        Acto_compañia VARCHAR (10)
+    )
+
+
+    CREATE TABLE servicios (
+        cod_servicio INT (5) AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR (10)
+    )
+
+    CREATE table cuartel_compañia(
+        Id_cuarteles1 int (10),
+         Num_compañia1 INT (5)
+    )
+
+    CREATE table soldado_servicio(
+        Id_soldado1 INT(5),
+        cod__servicio INT (5)
+    )
+
+    create table soldado_grado(
+        Id_soldado3 int (5) PRIMARY KEY,
+        Fecha_grado3 int (5)
+    )
+
+-- alter para modificar una tabla
+alter Table cuarteles ADD ubicacion VARCHAR (25);
+
+
+
+
+alter table soldado_grado ADD constraint fk_iduno FOREIGN KEY (Id_soldado3) REFERENCES soldado (Id_soldado);
+
+alter table soldado_grado ADD constraint fk_iddos FOREIGN KEY (Fecha_grado3) REFERENCES grados (Fecha_grado);
+
+alter table soldado_servicio ADD constraint fk_idtres FOREIGN KEY (Id_soldado1) REFERENCES soldado (Id_soldado);
+
+alter table soldado_servicio ADD constraint fk_idcuatro FOREIGN KEY (cod__servicio) REFERENCES servicios (cod_servicio);
+
+alter Table Cuerpos_del_ejercito add Id_soldado5 int (5);
+
+alter table Cuerpos_del_ejercito ADD constraint fk_idcinco FOREIGN KEY (Id_soldado5) REFERENCES soldado (Id_soldado);
+
+alter table soldado add Num_compañia5 int (5);
+
+alter table soldado ADD constraint fk_idseis FOREIGN KEY (Num_compañia5) REFERENCES compañias (Num_compañia);
+
+alter table cuartel_compañia ADD constraint fk_idsiete FOREIGN KEY (Id_cuarteles1) REFERENCES cuarteles (Id_cuarteles);
+
+alter table cuartel_compañia ADD constraint fk_idocho FOREIGN KEY (Num_compañia1) REFERENCES compañias (Num_compañia);
+DROP DATABASE militar; 
